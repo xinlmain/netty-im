@@ -25,13 +25,15 @@ public class NettyServer {
         .childHandler(new ChannelInitializer<NioSocketChannel>() {
           @Override
           protected void initChannel(NioSocketChannel ch) throws Exception {
-            ch.pipeline().addLast(new StringDecoder());
-            ch.pipeline().addLast(new SimpleChannelInboundHandler<String>() {
-              @Override
-              protected void channelRead0(ChannelHandlerContext channelHandlerContext, String s) throws Exception {
-                System.out.println(s);
-              }
-            });
+//            ch.pipeline().addLast(new StringDecoder());
+//            ch.pipeline().addLast(new SimpleChannelInboundHandler<String>() {
+//              @Override
+//              protected void channelRead0(ChannelHandlerContext channelHandlerContext, String s) throws Exception {
+//                System.out.println(s);
+//              }
+//            });
+
+            ch.pipeline().addLast(new FirstServerHandler());
           }
         })
         .bind(8000);
