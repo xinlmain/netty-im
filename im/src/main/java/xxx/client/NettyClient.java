@@ -14,8 +14,8 @@ import xxx.client.handler.MessageResponseHandler;
 import xxx.protocol.command.PacketCodec;
 import xxx.protocol.command.impl.MessageRequestPacket;
 import xxx.utils.LoginUtil;
-import xxx.utils.PacketDecoder;
-import xxx.utils.PacketEncoder;
+import xxx.utils.encode.PacketDecoder;
+import xxx.utils.encode.PacketEncoder;
 
 import java.util.Date;
 import java.util.Scanner;

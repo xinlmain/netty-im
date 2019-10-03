@@ -1,4 +1,4 @@
-package xxx.utils;
+package xxx.utils.encode;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -13,6 +13,6 @@ import xxx.protocol.command.PacketCodec;
 public class PacketEncoder extends MessageToByteEncoder<Packet> {
   @Override
   protected void encode(ChannelHandlerContext ctx, Packet msg, ByteBuf out) {
-    out = PacketCodec.INSTANCE.encode(ctx.alloc(),msg);
+    out = PacketCodec.INSTANCE.encode(ctx.alloc(), msg);
   }
 }
