@@ -7,6 +7,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import xxx.protocol.command.PacketCodec;
 import xxx.protocol.command.impl.LoginRequestPacket;
 import xxx.protocol.command.impl.LoginResponsePacket;
+import xxx.utils.LoginUtil;
 
 import java.util.Date;
 
@@ -23,6 +24,8 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
     LoginResponsePacket loginResponsePacket = new LoginResponsePacket();
     loginResponsePacket.setVersion(msg.getVersion());
     if (valid(msg)) {
+      // client 和 server的channel attribute无关，服务端需要自己设置
+      LoginUtil.markAsLogin(ctx.channel());
       loginResponsePacket.setSuccess(true);
       System.out.println(new Date() + ": 登录成功!");
     } else {
