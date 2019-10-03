@@ -6,6 +6,10 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import xxx.server.handler.LoginRequestHandler;
+import xxx.server.handler.MessageRequestHandler;
+import xxx.utils.PacketDecoder;
+import xxx.utils.PacketEncoder;
 
 import java.util.Date;
 
@@ -29,7 +33,10 @@ public class NettyServer {
         .childOption(ChannelOption.TCP_NODELAY, true)
         .childHandler(new ChannelInitializer<NioSocketChannel>() {
           protected void initChannel(NioSocketChannel ch) {
-            ch.pipeline().addLast(new ServerHandler());
+            ch.pipeline().addLast(new PacketDecoder());
+            ch.pipeline().addLast(new LoginRequestHandler());
+            ch.pipeline().addLast(new MessageRequestHandler());
+            ch.pipeline().addLast(new PacketEncoder());
           }
         });
 

@@ -9,9 +9,13 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import xxx.client.handler.LoginResponseHandler;
+import xxx.client.handler.MessageResponseHandler;
 import xxx.protocol.command.PacketCodec;
 import xxx.protocol.command.impl.MessageRequestPacket;
 import xxx.utils.LoginUtil;
+import xxx.utils.PacketDecoder;
+import xxx.utils.PacketEncoder;
 
 import java.util.Date;
 import java.util.Scanner;
@@ -39,7 +43,10 @@ public class NettyClient {
         .handler(new ChannelInitializer<SocketChannel>() {
           @Override
           public void initChannel(SocketChannel ch) {
-            ch.pipeline().addLast(new ClientHandler());
+            ch.pipeline().addLast(new PacketDecoder());
+            ch.pipeline().addLast(new LoginResponseHandler());
+            ch.pipeline().addLast(new MessageResponseHandler());
+            ch.pipeline().addLast(new PacketEncoder());
           }
         });
 
