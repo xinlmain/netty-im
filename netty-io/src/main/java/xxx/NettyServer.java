@@ -7,6 +7,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 
 /**
@@ -32,7 +33,7 @@ public class NettyServer {
 //                System.out.println(s);
 //              }
 //            });
-
+            ch.pipeline().addLast(new LineBasedFrameDecoder(Integer.MAX_VALUE));
             ch.pipeline().addLast(new FirstServerHandler());
           }
         })
