@@ -5,7 +5,10 @@ package xxx.protocol.serialize;
  * @date 2019-10-02 20:47
  */
 public interface Serializer {
-  JsonSerializer DEFAULT = new JsonSerializer();
+  /**
+   * 默认的Serializer：Json
+   */
+  Serializer DEFAULT = new JsonSerializer();
 
   /**
    * 序列化算法

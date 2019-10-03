@@ -1,6 +1,8 @@
-package xxx.protocol;
+package xxx.protocol.command.impl;
 
 import lombok.Data;
+import xxx.protocol.command.Commands;
+import xxx.protocol.command.Packet;
 
 /**
  * @author xin

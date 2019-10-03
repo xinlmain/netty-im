@@ -4,6 +4,9 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 import org.junit.Assert;
 import org.junit.Test;
+import xxx.protocol.command.impl.LoginRequestPacket;
+import xxx.protocol.command.Packet;
+import xxx.protocol.command.PacketCodec;
 import xxx.protocol.serialize.JsonSerializer;
 import xxx.protocol.serialize.Serializer;
 
