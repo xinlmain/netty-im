@@ -1,4 +1,4 @@
-package protocol.serialize;
+package xxx.protocol.serialize;
 
 import com.alibaba.fastjson.JSON;
 

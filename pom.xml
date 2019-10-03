@@ -13,6 +13,7 @@
         <module>nio</module>
         <module>netty-io</module>
         <module>protocol</module>
+        <module>im</module>
     </modules>
 
     <properties>

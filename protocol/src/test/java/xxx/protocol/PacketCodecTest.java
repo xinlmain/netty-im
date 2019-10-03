@@ -1,10 +1,11 @@
-package protocol;
+package xxx.protocol;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufAllocator;
 import org.junit.Assert;
 import org.junit.Test;
-import protocol.serialize.JsonSerializer;
-import protocol.serialize.Serializer;
+import xxx.protocol.serialize.JsonSerializer;
+import xxx.protocol.serialize.Serializer;
 
 /**
  * @author xin
@@ -18,12 +19,12 @@ public class PacketCodecTest {
     LoginRequestPacket loginRequestPacket = new LoginRequestPacket();
 
     loginRequestPacket.setVersion(((byte) 1));
-    loginRequestPacket.setUserId(123);
+    loginRequestPacket.setUserId("123");
     loginRequestPacket.setUsername("zhangsan");
     loginRequestPacket.setPassword("password");
 
     PacketCodec packetCodec = new PacketCodec();
-    ByteBuf byteBuf = packetCodec.encode(loginRequestPacket);
+    ByteBuf byteBuf = packetCodec.encode(ByteBufAllocator.DEFAULT, loginRequestPacket);
     Packet decodedPacket = packetCodec.decode(byteBuf);
 
     Assert.assertArrayEquals(serializer.serialize(loginRequestPacket), serializer.serialize(decodedPacket));

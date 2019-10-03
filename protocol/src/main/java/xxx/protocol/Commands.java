@@ -1,4 +1,4 @@
-package protocol;
+package xxx.protocol;
 
 /**
  * @author xin
@@ -6,4 +6,5 @@ package protocol;
  */
 public interface Commands {
   Byte LOGIN_REQUEST = 1;
+  Byte LOGIN_RESPONSE = 2;
 }
