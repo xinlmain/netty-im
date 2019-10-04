@@ -11,7 +11,6 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import xxx.client.handler.LoginResponseHandler;
 import xxx.client.handler.MessageResponseHandler;
-import xxx.protocol.command.PacketCodec;
 import xxx.protocol.command.impl.LoginRequestPacket;
 import xxx.protocol.command.impl.MessageRequestPacket;
 import xxx.session.SessionUtil;

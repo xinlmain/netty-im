@@ -14,8 +14,8 @@ import xxx.protocol.command.Packet;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MessageRequestPacket extends Packet {
-  private String message;
   private String toUserId;
+  private String message;
 
   @Override
   public Byte getCommand() {
