@@ -13,6 +13,6 @@ import xxx.protocol.command.PacketCodec;
 public class PacketEncoder extends MessageToByteEncoder<Packet> {
   @Override
   protected void encode(ChannelHandlerContext ctx, Packet msg, ByteBuf out) {
-    out = PacketCodec.INSTANCE.encode(ctx.alloc(), msg);
+    PacketCodec.INSTANCE.encode(out, msg);
   }
 }

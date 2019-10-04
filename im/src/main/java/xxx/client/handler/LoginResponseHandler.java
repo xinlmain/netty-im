@@ -1,9 +1,7 @@
 package xxx.client.handler;
 
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import xxx.protocol.command.PacketCodec;
 import xxx.protocol.command.impl.LoginRequestPacket;
 import xxx.protocol.command.impl.LoginResponsePacket;
 import xxx.utils.LoginUtil;
@@ -26,11 +24,8 @@ public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginRespo
     loginRequestPacket.setUsername("flash");
     loginRequestPacket.setPassword("pwd");
 
-    // 编码
-    ByteBuf buffer = PacketCodec.INSTANCE.encode(ctx.alloc(), loginRequestPacket);
-
     // 写数据
-    ctx.channel().writeAndFlush(buffer);
+    ctx.channel().writeAndFlush(loginRequestPacket);
   }
 
   @Override

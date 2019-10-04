@@ -1,10 +1,7 @@
 package xxx.server.handler;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import xxx.protocol.command.PacketCodec;
 import xxx.protocol.command.impl.MessageRequestPacket;
 import xxx.protocol.command.impl.MessageResponsePacket;
 
@@ -21,7 +18,6 @@ public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRe
 
     MessageResponsePacket responsePacket = new MessageResponsePacket();
     responsePacket.setMessage("服务端回复【" + msg.getMessage() + "】");
-    ByteBuf byteBuf = PacketCodec.INSTANCE.encode(ctx.alloc(), responsePacket);
-    ctx.channel().writeAndFlush(byteBuf);
+    ctx.channel().writeAndFlush(responsePacket);
   }
 }

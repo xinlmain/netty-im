@@ -1,7 +1,6 @@
 package xxx.protocol.command;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufAllocator;
 import xxx.protocol.command.impl.LoginRequestPacket;
 import xxx.protocol.command.impl.LoginResponsePacket;
 import xxx.protocol.command.impl.MessageRequestPacket;
@@ -38,8 +37,7 @@ public class PacketCodec {
   /**
    * 命令序列化
    */
-  public ByteBuf encode(ByteBufAllocator byteBufAllocator, Packet packet) {
-    ByteBuf byteBuf = byteBufAllocator.ioBuffer();
+  public ByteBuf encode(ByteBuf byteBuf, Packet packet) {
     // 将消息内容直接用Json序列化成字节
     byte[] bytes = Serializer.DEFAULT.serialize(packet);
 

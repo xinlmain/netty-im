@@ -1,10 +1,7 @@
 package xxx.server.handler;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import xxx.protocol.command.PacketCodec;
 import xxx.protocol.command.impl.LoginRequestPacket;
 import xxx.protocol.command.impl.LoginResponsePacket;
 import xxx.utils.LoginUtil;
@@ -34,8 +31,7 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
       System.out.println(new Date() + ": 登录失败!");
     }
     // 登录响应
-    ByteBuf responseByteBuf = PacketCodec.INSTANCE.encode(ctx.alloc(), loginResponsePacket);
-    ctx.channel().writeAndFlush(responseByteBuf);
+    ctx.channel().writeAndFlush(loginResponsePacket);
   }
 
   private boolean valid(LoginRequestPacket loginRequestPacket) {

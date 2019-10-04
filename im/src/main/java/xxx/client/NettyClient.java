@@ -1,7 +1,6 @@
 package xxx.client;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -12,7 +11,6 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import xxx.client.handler.LoginResponseHandler;
 import xxx.client.handler.MessageResponseHandler;
-import xxx.protocol.command.PacketCodec;
 import xxx.protocol.command.impl.MessageRequestPacket;
 import xxx.utils.LoginUtil;
 import xxx.utils.encode.PacketDecoder;
@@ -87,8 +85,7 @@ public class NettyClient {
 
           MessageRequestPacket packet = new MessageRequestPacket();
           packet.setMessage(line);
-          ByteBuf byteBuf = PacketCodec.INSTANCE.encode(channel.alloc(), packet);
-          channel.writeAndFlush(byteBuf);
+          channel.writeAndFlush(packet);
         }
       }
     }).start();
