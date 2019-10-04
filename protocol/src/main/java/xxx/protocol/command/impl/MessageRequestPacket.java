@@ -1,6 +1,8 @@
 package xxx.protocol.command.impl;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import xxx.protocol.command.Commands;
 import xxx.protocol.command.Packet;
 
@@ -9,8 +11,11 @@ import xxx.protocol.command.Packet;
  * @date 2019-10-03 16:36
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class MessageRequestPacket extends Packet {
   private String message;
+  private String toUserId;
 
   @Override
   public Byte getCommand() {

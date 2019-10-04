@@ -1,6 +1,7 @@
 package xxx.utils;
 
 import io.netty.util.AttributeKey;
+import xxx.session.Session;
 
 /**
  * @author xin
@@ -8,4 +9,5 @@ import io.netty.util.AttributeKey;
  */
 public interface Attributes {
   AttributeKey<Boolean> LOGIN = AttributeKey.newInstance("login");
+  AttributeKey<Session> SESSION = AttributeKey.newInstance("session");
 }

@@ -2,39 +2,30 @@ package xxx.client.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import xxx.protocol.command.impl.LoginRequestPacket;
 import xxx.protocol.command.impl.LoginResponsePacket;
-import xxx.utils.LoginUtil;
+import xxx.session.Session;
+import xxx.session.SessionUtil;
 
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * @author xin
  * @date 2019-10-03 18:29
  */
 public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginResponsePacket> {
-  @Override
-  public void channelActive(ChannelHandlerContext ctx) {
-    System.out.println(new Date() + ": 客户端开始登录");
-
-    // 创建登录对象
-    LoginRequestPacket loginRequestPacket = new LoginRequestPacket();
-    loginRequestPacket.setUserId(UUID.randomUUID().toString());
-    loginRequestPacket.setUsername("flash");
-    loginRequestPacket.setPassword("pwd");
-
-    // 写数据
-    ctx.channel().writeAndFlush(loginRequestPacket);
-  }
 
   @Override
-  protected void channelRead0(ChannelHandlerContext ctx, LoginResponsePacket msg) throws Exception {
+  protected void channelRead0(ChannelHandlerContext ctx, LoginResponsePacket msg) {
     if (msg.isSuccess()) {
       System.out.println(new Date() + ": 客户端登录成功");
-      LoginUtil.markAsLogin(ctx.channel());
+      SessionUtil.bindSession(new Session(msg.getUserId(), msg.getUsername()), ctx.channel());
     } else {
       System.out.println(new Date() + ": 客户端登录失败，原因：" + msg.getReason());
     }
+  }
+
+  @Override
+  public void channelInactive(ChannelHandlerContext ctx) {
+    System.out.println("客户端连接被关闭");
   }
 }
