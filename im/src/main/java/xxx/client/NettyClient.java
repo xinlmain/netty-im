@@ -11,10 +11,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import xxx.client.console.ConsoleCommandManager;
 import xxx.client.console.LoginConsoleCommand;
-import xxx.client.handler.CreateGroupResponseHandler;
-import xxx.client.handler.JoinGroupResponseHandler;
-import xxx.client.handler.LoginResponseHandler;
-import xxx.client.handler.MessageResponseHandler;
+import xxx.client.handler.*;
 import xxx.session.SessionUtil;
 import xxx.utils.encode.PacketDecoder;
 import xxx.utils.encode.PacketEncoder;
@@ -51,6 +48,7 @@ public class NettyClient {
             ch.pipeline().addLast(new MessageResponseHandler());
             ch.pipeline().addLast(new CreateGroupResponseHandler());
             ch.pipeline().addLast(new JoinGroupResponseHandler());
+            ch.pipeline().addLast(new GroupMessageResponseHandler());
             ch.pipeline().addLast(new PacketEncoder());
           }
         });
