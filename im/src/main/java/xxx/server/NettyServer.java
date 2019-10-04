@@ -7,9 +7,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
-import xxx.server.handler.AuthHandler;
-import xxx.server.handler.LoginRequestHandler;
-import xxx.server.handler.MessageRequestHandler;
+import xxx.server.handler.*;
 import xxx.utils.encode.PacketDecoder;
 import xxx.utils.encode.PacketEncoder;
 
@@ -40,6 +38,8 @@ public class NettyServer {
             ch.pipeline().addLast(new LoginRequestHandler());
             ch.pipeline().addLast(new AuthHandler());
             ch.pipeline().addLast(new MessageRequestHandler());
+            ch.pipeline().addLast(new CreateGroupRequestHandler());
+            ch.pipeline().addLast(new JoinGroupRequestHandler());
             ch.pipeline().addLast(new PacketEncoder());
           }
         });
