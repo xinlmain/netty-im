@@ -1,7 +1,6 @@
 package xxx.client;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -13,8 +12,9 @@ import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import xxx.client.handler.LoginResponseHandler;
 import xxx.client.handler.MessageResponseHandler;
 import xxx.protocol.command.PacketCodec;
+import xxx.protocol.command.impl.LoginRequestPacket;
 import xxx.protocol.command.impl.MessageRequestPacket;
-import xxx.utils.LoginUtil;
+import xxx.session.SessionUtil;
 import xxx.utils.encode.PacketDecoder;
 import xxx.utils.encode.PacketEncoder;
 
@@ -78,19 +78,36 @@ public class NettyClient {
   }
 
   private static void startConsoleThread(Channel channel) {
+    Scanner sc = new Scanner(System.in);
+
     new Thread(() -> {
       while (!Thread.interrupted()) {
-        if (LoginUtil.hasLogin(channel)) {
-          System.out.println("输入消息发送至服务端：");
-          Scanner sc = new Scanner(System.in);
-          String line = sc.nextLine();
+        if (!SessionUtil.hasLogin(channel)) {
+          System.out.println("输入用户名登录：");
+          String username = sc.nextLine();
 
-          MessageRequestPacket packet = new MessageRequestPacket();
-          packet.setMessage(line);
-          ByteBuf byteBuf = PacketCodec.INSTANCE.encode(channel.alloc(), packet);
-          channel.writeAndFlush(byteBuf);
+          LoginRequestPacket loginRequestPacket = new LoginRequestPacket();
+
+          loginRequestPacket.setUsername(username);
+          loginRequestPacket.setPassword("pwd");
+
+          channel.writeAndFlush(loginRequestPacket);
+          waitForLoginResponse();
+        } else {
+          System.out.println("发送信息：");
+          String toUserId = sc.next();
+          String msg = sc.nextLine();
+          channel.writeAndFlush(new MessageRequestPacket(toUserId, msg));
         }
       }
     }).start();
+  }
+
+  private static void waitForLoginResponse() {
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 }

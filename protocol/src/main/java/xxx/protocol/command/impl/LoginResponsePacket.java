@@ -12,6 +12,8 @@ import xxx.protocol.command.Packet;
 public class LoginResponsePacket extends Packet {
   private boolean success;
   private String reason;
+  private String username;
+  private String userId;
 
   @Override
   public Byte getCommand() {
